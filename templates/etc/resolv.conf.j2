@@ -6,7 +6,7 @@ domain {{ dns_domain }}
 {% for dns_nameserver in dns_nameservers %}
 nameserver {{ dns_nameserver }}
 {% endfor %}
-{% if dns_options | default([]) | length %}
+{% if dns_options | default([]) | length > 0 %}
 options {{ dns_options | join(' ') }}
 {% endif %}
 {% if dns_searches %}
