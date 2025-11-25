@@ -38,7 +38,7 @@
   ansible.builtin.template:
     src: etc/resolv.conf.j2
     dest: "{{ dns_resolvconf_file }}"
-    mode: 0644
+    mode: '0644'
   tags:
     - configuration
     - dns
@@ -62,7 +62,7 @@
     - dns
     - dns-dhclient-file-stats
 
-- name: configure dns servers - dhclient file  # noqa var-spacing
+- name: configure dns servers - dhclient file  # noqa jinja[spacing]
   ansible.builtin.lineinfile:
     regexp: '^(.*)(supersede|prepend) {{ item.name }} (.*);$'
     backrefs: true
@@ -76,7 +76,7 @@
       value: '{% for dns_nameserver in dns_nameservers %}{{ dns_nameserver }}{% if not loop.last %}, {% endif %}{% endfor %}'
     - name: 'domain-search'
       value: '{% for dns_search in dns_searches %}"{{ dns_search }}"{% if not loop.last %}, {% endif %}{% endfor %}'
-  when: item.value
+  when: item.value | length > 0
   tags:
     - configuration
     - dns
