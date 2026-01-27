@@ -54,7 +54,7 @@
     - dns-dhclient-file-stats
 
 - name: check dhclient file stats
-  ansible.builtin.fail:
+  ansible.builtin.debug:
     msg: "dhclient file not found"
   when: not _dhclient_file_stats.stat.exists
   tags:
@@ -76,7 +76,9 @@
       value: '{% for dns_nameserver in dns_nameservers %}{{ dns_nameserver }}{% if not loop.last %}, {% endif %}{% endfor %}'
     - name: 'domain-search'
       value: '{% for dns_search in dns_searches %}"{{ dns_search }}"{% if not loop.last %}, {% endif %}{% endfor %}'
-  when: item.value | length > 0
+  when:
+    - _dhclient_file_stats.stat.exists
+    - item.value | length > 0
   tags:
     - configuration
     - dns
