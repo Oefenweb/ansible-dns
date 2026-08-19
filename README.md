@@ -11,7 +11,7 @@ None
 
 #### Variables
 
-* `dns_remove_resolvconf` [default: `true`]: Whether or not to remove the `resolvconf` package
+* `dns_remove_resolvconf` [default: `true`]: Whether to remove the `resolvconf` package
 * `dns_domain` [default: `''`]: Local domain name. Most queries for names within this domain can use short names relative to the local domain
 * `dns_nameservers` [default: `[8.8.8.8, 8.8.4.4]`]: Internet address(es) (in dot notation) of name servers that the resolver should query
 * `dns_searches` [default: `[]`]: Search list for host-name lookup. The search list is normally determined from the local domain name; by default, it contains only the local domain name
